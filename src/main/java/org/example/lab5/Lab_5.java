@@ -1,20 +1,20 @@
-package Lab_5;
+package org.example.lab5;
 
-import Lab_interface.Lab_I;
+import org.example.labI.Lab_Interface;
 
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Lab_5 implements Lab_I {
+public class Lab_5 implements Lab_Interface {
     @Override
     public void Run(){
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Map<String, Log> dict = new TreeMap<String, Log>();
 
-            File file = new File("src/Lab_5/text.txt");
+            File file = new File("src/main/resources/Lab_5/Log_1.txt");
             FileReader fr = new FileReader(file);
             BufferedReader reader = new BufferedReader(fr);
 
@@ -39,12 +39,12 @@ public class Lab_5 implements Lab_I {
             for (Map.Entry<String, Log> entry : dict.entrySet())
             {
                 sum += entry.getValue().getDelta();
-                entry.getValue().print();
+//                entry.getValue().print();
             }
             sum = sum / dict.size();
 
 
-            System.out.println("\nCHECK THIS LOG\n");
+            System.out.println("CHECK THIS LOG:");
             long delta = 10;
             for (Map.Entry<String, Log> entry : dict.entrySet())
             {
@@ -62,37 +62,3 @@ public class Lab_5 implements Lab_I {
         }
     }
 }
-
-class Log
-{
-    String id;
-    java.util.Date start;
-    java.util.Date end;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    public Log(String id, String start) throws ParseException
-    {
-        this.id = id;
-        this.start = dateFormat.parse(start);
-        this.end = null;
-    }
-    public Log(String id, String start, String end) throws ParseException
-    {
-        this(id, start);
-        this.end = dateFormat.parse(end);
-    }
-    public void addEnd(String end) throws ParseException
-    {
-        this.end = dateFormat.parse(end);
-    }
-    public long getDelta()
-    {
-        return end.getTime() - start.getTime();
-    }
-    public void print()
-    {
-        System.out.println("ID = " + this.id + " start: "+ dateFormat.format(start) +
-                                                " end: " + dateFormat.format(end));
-    }
-}
-

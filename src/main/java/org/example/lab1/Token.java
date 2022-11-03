@@ -1,4 +1,4 @@
-package Lab_1;
+package org.example.lab1;
 
 class Token
 {
