@@ -11,14 +11,17 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Lab_Interface[] labs = new Lab_Interface[] {new Lab_1(), new Lab_2(), null, new Lab_4(), new Lab_5()};
-        Scanner scanner = new Scanner(System.in);
 
-        Lab_Interface lab = labs[scanner.nextInt()-1];
-        if (lab != null) {
-            lab.Run();
-        }
-        else {
-            System.out.println("Lab in work :/");
+        while(true) {
+            System.out.print("input lab number: ");
+            Scanner scanner = new Scanner(System.in);
+
+            Lab_Interface lab = labs[scanner.nextInt() - 1];
+            if (lab != null) {
+                lab.Run();
+            } else {
+                System.out.println("Lab in work :/");
+            }
         }
     }
 }
