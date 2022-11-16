@@ -1,3 +1,5 @@
 package org.example.labI;
 
-public interface Lab_Interface { public void Run(); }
+import java.io.IOException;
+
+public interface Lab_Interface { public void Run() throws IOException; }

@@ -4,8 +4,7 @@ class Pair implements Comparable<Pair>
 {
     public int denomination;
     public int quantity;
-    Pair(int first, int second)
-    {
+    Pair(int first, int second) {
         this.denomination = first;
         this.quantity = second;
     }

@@ -25,7 +25,8 @@ public class Lab_2 implements Lab_Interface
         else
             for (Pair p : rez)
             {
-                System.out.println(p);
+                if (p.quantity != 0)
+                    System.out.println(p);
             }
     }
 
@@ -54,10 +55,10 @@ public class Lab_2 implements Lab_Interface
     }
 
     private void InitCoinSet() {
-        coins.add(new Pair(5,2));
-        coins.add(new Pair(2,1));
-        coins.add(new Pair(1,3));
-        coins.add(new Pair(0,1));
+        coins.add(new Pair(10,2));
+        coins.add(new Pair(6,2));
+        coins.add(new Pair(1,1));
+        //coins.add(new Pair(0,1));
         Collections.sort(coins);
     }
 }
