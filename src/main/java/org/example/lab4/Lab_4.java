@@ -10,7 +10,7 @@ public class Lab_4 implements Lab_Interface {
     @Override
     public void Run()
     {
-        File folder = new File("C:/Users/bam10/Downloads/");
+        File folder = new File("C:\\Users\\bam10\\Documents");
         System.out.println("bit:       " + getSize(folder));
         System.out.println("bytes:     " + getSize(folder)/1024);
         System.out.println("kilobytes: " + getSize(folder)/1024/1024);
@@ -23,7 +23,11 @@ public class Lab_4 implements Lab_Interface {
         else if (file.isDirectory())
         {
             long sum = 0;
-            for (File f : Objects.requireNonNull(file.listFiles()))
+            File[] files = file.listFiles();
+            if(files == null)
+                return sum;
+
+            for (File f : files)
             {
                 sum += getSize(f);
             }

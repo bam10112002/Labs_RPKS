@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Lab_3 implements Lab_Interface {
     String substring;
@@ -17,15 +19,19 @@ public class Lab_3 implements Lab_Interface {
     RandomAccessFile raf;
     @Override
     public void Run() throws IOException {
+//        TreadPoolTest();
+        int processors = Runtime.getRuntime().availableProcessors();
+        ExecutorService executorService = Executors.newFixedThreadPool(processors - 1);
         try {
             raf = new RandomAccessFile("src/main/resources/Lab_3/text.txt", "rw");
-            substring = "surprise string";
+            substring = "surprise";
             numberOfThreads = 10;
             treadsInd = new Stack<>();
             len = raf.length() / numberOfThreads;
             indexOf = new Stack<>();
             for (int i = 0; i < numberOfThreads; i++) {
                 treadsInd.push(raf.length() / numberOfThreads * i);
+//                executorService.submit(new FinderTread().Init(substring, "src/main/resources/Lab_3/text.txt" , start, end, indexOf));
             }
 
             while (!treadsInd.empty()) {
@@ -37,9 +43,9 @@ public class Lab_3 implements Lab_Interface {
                 FinderTread tread = new FinderTread();
                 tread.Init(substring, "src/main/resources/Lab_3/text.txt" , start, end, indexOf);
                 tread.start();
-                tread.join();
+//                tread.join();
             }
-        } catch (IOException | InterruptedException ex) {
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
 
@@ -72,6 +78,16 @@ public class Lab_3 implements Lab_Interface {
             curr--;
         }
         return -1;
+    }
+
+    private void TreadPoolTest() {
+        int processors = Runtime.getRuntime().availableProcessors();
+        ExecutorService executorService = Executors.newFixedThreadPool(processors - 1);
+
+        executorService.submit(() -> {System.out.println("Hello");});
+//        executorService.execute();
+
+        executorService.shutdown();
     }
 }
 class FinderTread extends Thread {

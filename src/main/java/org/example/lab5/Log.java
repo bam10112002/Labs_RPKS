@@ -29,9 +29,10 @@ class Log
     {
         return end.getTime() - start.getTime();
     }
-    public void print()
-    {
-        System.out.println("ID = " + this.id + " start: "+ dateFormat.format(start) +
-                " end: " + dateFormat.format(end));
+
+    @Override
+    public String toString() {
+        return "ID = " + this.id + " start: "+ dateFormat.format(start) +
+                " end: " + dateFormat.format(end);
     }
 }

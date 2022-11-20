@@ -12,14 +12,14 @@ public class Lab_5 implements Lab_Interface {
     public void Run(){
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Map<String, Log> dict = new TreeMap<String, Log>();
+            Map<String, Log> dict = new HashMap<>();
 
-            File file = new File("src/main/resources/Lab_5/Log_1.txt");
-            FileReader fr = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fr);
+            BufferedReader reader = new BufferedReader(
+                                    new FileReader("src/main/resources/Lab_5/Log_1.txt"));
 
             String line = reader.readLine();
 
+            int current = 1;
             while (line != null) {
                 String[] lines = line.split("ID = ");
                 String id = lines[1];
@@ -33,27 +33,41 @@ public class Lab_5 implements Lab_Interface {
                     currentLog.addEnd(data);
 
                 line = reader.readLine();
+                System.out.print("*");
+                if (current % 20 == 0)
+                    System.out.println();
+                current++;
             }
 
-            long sum = 0;
-            for (Map.Entry<String, Log> entry : dict.entrySet())
-            {
-                sum += entry.getValue().getDelta();
-//                entry.getValue().print();
-            }
-            sum = sum / dict.size();
+            ArrayList<Log> listOfKeys = new ArrayList<>(dict.values());
 
 
-            System.out.println("CHECK THIS LOG:");
-            long delta = 10;
+            long median = listOfKeys.get(listOfKeys.size()/2).getDelta();
+
+            System.out.println("\ninput delta in seconds: ");
+            Scanner scanner = new Scanner(System.in);
+            long delta = scanner.nextInt() * 1000L;
+            if (delta == 0)
+                delta = 4000;
+
+            current = 1;
+            StringBuilder builder = new StringBuilder();
             for (Map.Entry<String, Log> entry : dict.entrySet())
             {
-                if (entry.getValue().getDelta() + delta > sum)
+                if (entry.getValue().getDelta() > median + delta)
                 {
-                    entry.getValue().print();
-                    System.out.println("\tdeviation by " + (entry.getValue().getDelta() - sum) + "ms");
+                    builder.append(entry.getValue().toString());
+                    builder.append("\tdeviation by ").append(entry.getValue().getDelta() - median).append("ms\n");
                 }
+
+                System.out.print("*");
+                if (current % 20 == 0)
+                    System.out.println();
+                current++;
             }
+            System.out.println("\nMedian is: " + median + "\nDelta is: " + delta);
+            System.out.println("CHECK THIS LOGS:");
+            System.out.println(builder.toString());
 
         } catch (IOException e) {
             e.printStackTrace();

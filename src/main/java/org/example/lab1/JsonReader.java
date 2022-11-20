@@ -63,6 +63,22 @@ class Bracket {
     public String open;
     public String close;
 
+    public String getOpen() {
+        return open;
+    }
+
+    public void setOpen(String open) {
+        this.open = open;
+    }
+
+    public String getClose() {
+        return close;
+    }
+
+    public void setClose(String close) {
+        this.close = close;
+    }
+
     public Type GetType(@NonNull String str) {
         if (str.equals(open)) {
             if (open.equals(close))
